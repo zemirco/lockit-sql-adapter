@@ -1,0 +1,34 @@
+{
+  "name": "lockit-sql-adapter",
+  "version": "0.0.1",
+  "description": "SQL adapter for lockit. Works with PostgreSQL, MySQL, SQLite and MariaDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "keywords": [
+    "lockit",
+    "sql",
+    "adpater",
+    "postgresql",
+    "mysql",
+    "sqlite",
+    "mariadb"
+  ],
+  "author": "Mirco Zeiss",
+  "license": "MIT",
+  "dependencies": {
+    "ms": "~0.6.2",
+    "uuid": "~1.4.1",
+    "moment": "~2.5.0",
+    "bcrypt": "~0.7.7",
+    "pg": "~2.11.0",
+    "sequelize": "~2.0.0-dev1"
+  },
+  "devDependencies": {
+    "should": "~3.0.1",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-mocha-test": "~0.8.2"
+  }
+}
