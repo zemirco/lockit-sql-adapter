@@ -21,8 +21,9 @@ var adapter = require('lockit-sql-adapter');
 The following settings are required.
 
 ```js
-exports.db = 'couchdb';
-exports.dbUrl = 'http://127.0.0.1:5984/test';
+exports.db = 'postgresql';
+exports.dbUrl = 'postgres://127.0.0.1:5432/users';
+exports.dbCollection = 'my_user_table';
 ```
 
 ## Features
@@ -52,7 +53,7 @@ adapter.save('john', 'john@email.com', 'secret', function(err, user) {
   if (err) console.log(err);
   console.log(user);
   // {
-  //  _id: '8c7cd00c55a25ceb279a8e893d011b3e',
+  //  _id: 1,
   //  username: 'john',
   //  email: 'john@email.com',
   //  signupToken: 'fed26ce9-2628-405a-b9fa-285d4a66f4c3',
@@ -77,7 +78,7 @@ adapter.find('username', 'john', function(err, user) {
   if (err) console.log(err);
   console.log(user);
   // {
-  //  _id: '8c7cd00c55a25ceb279a8e893d011b3e',
+  //  _id: 1,
   //  username: 'john',
   //  email: 'john@email.com',
   //  signupToken: 'fed26ce9-2628-405a-b9fa-285d4a66f4c3',
