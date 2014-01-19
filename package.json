@@ -6,6 +6,10 @@
   "scripts": {
     "test": "grunt"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeMirco/lockit-sql-adapter"
+  },
   "keywords": [
     "lockit",
     "sql",
@@ -15,7 +19,11 @@
     "sqlite",
     "mariadb"
   ],
-  "author": "Mirco Zeiss",
+  "author": {
+    "name": "Mirco Zeiss",
+    "email": "mirco.zeiss@gmail.com",
+    "twitter": "zeMirco"
+  },
   "license": "MIT",
   "dependencies": {
     "ms": "~0.6.2",
