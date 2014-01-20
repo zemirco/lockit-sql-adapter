@@ -6,8 +6,6 @@
 
 SQL adapter for [Lockit](https://github.com/zeMirco/lockit).
 
-... not ready yet ... 
-
 ## Installation
 
 `npm install lockit-sql-adapter`
@@ -16,14 +14,33 @@ SQL adapter for [Lockit](https://github.com/zeMirco/lockit).
 var adapter = require('lockit-sql-adapter');
 ```
 
+The adapter is built on top of [sequelize](http://sequelizejs.com/). 
+The following databases are supported:
+
+ - MySQL
+ - MariaDB (not yet tested but should work)
+ - SQLite 
+ - PostgreSQL
+
+You have to install the connector for your database of choice manually.
+ 
+```
+npm install pg       # for postgres
+npm install mysql    # for mysql
+npm install sqlite3  # for sqlite
+npm install mariasql # for mariasql
+```
+
 ## Configuration
 
 The following settings are required.
 
 ```js
-exports.db = 'postgresql';
-exports.dbUrl = 'postgres://127.0.0.1:5432/users';
-exports.dbCollection = 'my_user_table';
+exports.db = 'sql';
+exports.dbUrl = 'postgres://127.0.0.1:5432/users';  // for postgres
+// exports.dbUrl = 'mysql://127.0.0.1:9821/users';  // for mysql
+// exports.dbUrl = 'sqlite://:memory:';             // for sqlite
+exports.dbCollection = 'my_user_table';             // table name
 ```
 
 ## Features
