@@ -30,13 +30,15 @@
     "uuid": "~1.4.1",
     "moment": "~2.5.0",
     "bcrypt": "~0.7.7",
-    "pg": "~2.11.0",
     "sequelize": "~2.0.0-dev1"
   },
   "devDependencies": {
     "should": "~3.0.1",
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-mocha-test": "~0.8.2"
+    "grunt-mocha-test": "~0.8.2",
+    "pg": "~2.11.0",
+    "sqlite3": "~2.2.0",
+    "mysql": "~2.0.1"
   }
 }
