@@ -3,10 +3,10 @@ var should = require('should');
 var config = require('./config.js');
 
 // run the same tests for postgres, mysql and sqlite
-Object.keys(config.dbUrls).forEach(function(obj) {
+Object.keys(config.dbs).forEach(function(obj) {
   
   var conf = {
-    dbUrl: config.dbUrls[obj],
+    db: config.dbs[obj],
     dbCollection: config.dbCollection
   };
 
