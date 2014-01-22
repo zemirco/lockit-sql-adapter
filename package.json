@@ -1,6 +1,6 @@
 {
   "name": "lockit-sql-adapter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "SQL adapter for lockit. Works with PostgreSQL, MySQL, SQLite and MariaDB",
   "main": "index.js",
   "scripts": {
