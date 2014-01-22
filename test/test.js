@@ -7,7 +7,8 @@ Object.keys(config.dbs).forEach(function(obj) {
   
   var conf = {
     db: config.dbs[obj],
-    dbCollection: config.dbCollection
+    dbCollection: config.dbCollection,
+    signup: config.signup
   };
 
   var adapter = require('../index.js')(conf);

@@ -6,7 +6,7 @@ var moment = require('moment');
 var Sequelize = require('sequelize');
 
 module.exports = function(config) {
-
+  
   var sequelize = new Sequelize(config.db);
   
   var User = sequelize.define('User', {
