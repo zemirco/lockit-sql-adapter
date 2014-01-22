@@ -7,7 +7,7 @@ var Sequelize = require('sequelize');
 
 module.exports = function(config) {
 
-  var sequelize = new Sequelize(config.dbUrl);
+  var sequelize = new Sequelize(config.db);
   
   var User = sequelize.define('User', {
     // make id like CouchDB and MongoDB
@@ -57,7 +57,7 @@ module.exports = function(config) {
   adapter.save = function(name, email, pw, done) {
 
     var now = moment().toDate();
-    var timespan = ms(config.signupTokenExpiration);
+    var timespan = ms(config.signup.tokenExpiration);
     var future = moment().add(timespan, 'ms').toDate();
 
     // create hashed password
