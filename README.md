@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/zeMirco/lockit-sql-adapter.png)](https://travis-ci.org/zeMirco/lockit-sql-adapter) [![NPM version](https://badge.fury.io/js/lockit-sql-adapter.png)](http://badge.fury.io/js/lockit-sql-adapter)
 
-[![NPM](https://nodei.co/npm/lockit-sql-adapter.png)](https://nodei.co/npm/lockit-sql-adapter/)
-
 SQL adapter for [Lockit](https://github.com/zeMirco/lockit).
 
 ## Installation
