@@ -1,4 +1,5 @@
 
+var url = require('url');
 var uuid = require('uuid');
 var bcrypt = require('bcrypt');
 var ms = require('ms');
@@ -6,9 +7,13 @@ var moment = require('moment');
 var Sequelize = require('sequelize');
 
 module.exports = function(config) {
-  
-  var sequelize = new Sequelize(config.db);
-  
+
+  var storage = (config.db === 'sqlite://:memory:') ? ':memory:' : url.parse(config.db).path;
+
+  var sequelize = new Sequelize(config.db, {
+    storage: storage
+  });
+
   var User = sequelize.define('User', {
     // make id like CouchDB and MongoDB
     _id: {
@@ -43,16 +48,16 @@ module.exports = function(config) {
 
   User.sequelize.sync({
 //    force: true
-  }).success(function(err) {
-        
+  }).success(function(res) {
+
     // you can now use User to create new instances
-        
+
   }).error(function(err) {
     console.log(err);
   });
-  
+
   var adapter = {};
-  
+
   // create a new user
   adapter.save = function(name, email, pw, done) {
 
@@ -63,7 +68,7 @@ module.exports = function(config) {
     // create hashed password
     bcrypt.hash(pw, 10, function(err, hash) {
       if (err) return done(err);
-      
+
       var user = User.build({
         username: name,
         email: email,
@@ -73,7 +78,7 @@ module.exports = function(config) {
         failedLoginAttempts: 0,
         hash: hash
       });
-      
+
       // save user to db
       user.save().success(function() {
 
@@ -83,15 +88,15 @@ module.exports = function(config) {
         }).error(function(err) {
           done(err);
         });
-        
+
       }).error(function(err) {
         done(err);
       });
 
     });
-    
+
   };
-  
+
   // find a user in db
   // match is either "username", "email" or "signupToken"
   adapter.find = function(match, query, done) {
@@ -100,32 +105,32 @@ module.exports = function(config) {
     qry[match] = query;
 
     User.find({ where: qry }).success(function(user) {
-      
+
       // create empty object in case no user is found
       user = user || {};
-      
+
       done(null, user.dataValues);
     }).error(function(err) {
       done(err);
     });
-    
+
   };
-  
+
   // update an existing user
   adapter.update = function(user, done) {
-    
+
     User.update(user, {_id: user._id}).success(function() {
-          
+
       User.find(user._id).success(function(user) {
         done(null, user.dataValues);
       }).error(function(err) {
         done(err);
       });
-        
+
     }).error(function(err) {
       done(err);
     });
-    
+
   };
 
   // remove an existing user from db
@@ -135,7 +140,7 @@ module.exports = function(config) {
     qry[match] = query;
 
     User.find({ where: qry }).success(function(user) {
-      
+
       if (!user) return done(new Error('lockit - Cannot find ' + match + ': "' + query + '"'));
 
       user.destroy().success(function() {
@@ -143,13 +148,13 @@ module.exports = function(config) {
       }).error(function(err) {
         done(err);
       });
-      
+
     }).error(function(err) {
       done(err);
     });
-    
+
   };
-  
+
   return adapter;
 
 };
