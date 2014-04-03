@@ -12,16 +12,16 @@ SQL adapter for [Lockit](https://github.com/zeMirco/lockit).
 var adapter = require('lockit-sql-adapter');
 ```
 
-The adapter is built on top of [sequelize](http://sequelizejs.com/). 
+The adapter is built on top of [sequelize](http://sequelizejs.com/).
 The following databases are supported:
 
  - MySQL
  - MariaDB (not yet tested but should work)
- - SQLite 
+ - SQLite
  - PostgreSQL
 
 You have to install the connector for your database of choice manually.
- 
+
 ```
 npm install pg       # for postgres
 npm install mysql    # for mysql
@@ -86,7 +86,7 @@ adapter.save('john', 'john@email.com', 'secret', function(err, user) {
  - `match`: String - one of the following: 'username', 'email' or 'signupToken'
  - `query`: String - corresponds to `match`, i.e. 'john@email.com'
  - `callback`:  Function - `callback(err, user)`
- 
+
 ```js
 adapter.find('username', 'john', function(err, user) {
   if (err) console.log(err);
@@ -110,16 +110,16 @@ adapter.find('username', 'john', function(err, user) {
 
  - `user`: Object - must have `_id` key
  - `callback`: Function - `callback(err, user)` - `user` is the updated user object
- 
+
 ```js
 // get a user from db first
 adapter.find('username', 'john', function(err, user) {
   if (err) console.log(err);
-  
+
   // add some new properties to our existing user
   user.firstOldKey = 'and some value';
   user.secondOldKey = true;
-  
+
   // save updated user to db
   adapter.update(user, function(err, user) {
     if (err) console.log(err);
@@ -130,14 +130,13 @@ adapter.find('username', 'john', function(err, user) {
 
 ### 4. Delete user
 
-`adapter.remove(match, query, callback)`
+`adapter.remove(username, callback)`
 
- - `match`: String - one of the following: 'username', 'email' or 'signupToken'
- - `query`: String - corresponds to `match`, i.e. `john@email.com`
+ - `username`: String
  - `callback`: Function - `callback(err, res)` - `res` is `true` if everything went fine
- 
+
 ```js
-adapter.remove('username', 'john', function(err, res) {
+adapter.remove('john', function(err, res) {
   if (err) console.log(err);
   console.log(res);
   // true
