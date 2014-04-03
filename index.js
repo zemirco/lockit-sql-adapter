@@ -134,14 +134,11 @@ module.exports = function(config) {
   };
 
   // remove an existing user from db
-  adapter.remove = function(match, query, done) {
+  adapter.remove = function(username, done) {
 
-    var qry = {};
-    qry[match] = query;
+    User.find({ where: {username: username} }).success(function(user) {
 
-    User.find({ where: qry }).success(function(user) {
-
-      if (!user) return done(new Error('lockit - Cannot find ' + match + ': "' + query + '"'));
+      if (!user) return done(new Error('lockit - Cannot find user "' + username + '"'));
 
       user.destroy().success(function() {
         done(null, true);
