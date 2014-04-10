@@ -1,7 +1,7 @@
 
 var url = require('url');
 var uuid = require('uuid');
-var bcrypt = require('bcrypt');
+var pwd = require('couch-pwd');
 var ms = require('ms');
 var moment = require('moment');
 var Sequelize = require('sequelize');
@@ -22,9 +22,10 @@ module.exports = function(config) {
       primaryKey: true
     },
     // signup
-    username: Sequelize.STRING,
+    name: Sequelize.STRING,
     email: Sequelize.STRING,
-    hash: Sequelize.STRING,
+    derived_key: Sequelize.STRING,
+    salt: Sequelize.STRING,
     signupToken: Sequelize.STRING,
     signupTimestamp: Sequelize.DATE,
     signupTokenExpires: Sequelize.DATE,
@@ -66,17 +67,18 @@ module.exports = function(config) {
     var future = moment().add(timespan, 'ms').toDate();
 
     // create hashed password
-    bcrypt.hash(pw, 10, function(err, hash) {
+    pwd.hash(pw, function(err, salt, hash) {
       if (err) return done(err);
 
       var user = User.build({
-        username: name,
+        name: name,
         email: email,
         signupToken: uuid.v4(),
         signupTimestamp: now,
         signupTokenExpires: future,
         failedLoginAttempts: 0,
-        hash: hash
+        salt: salt,
+        derived_key: hash
       });
 
       // save user to db
@@ -98,7 +100,7 @@ module.exports = function(config) {
   };
 
   // find a user in db
-  // match is either "username", "email" or "signupToken"
+  // match is either "name", "email" or "signupToken"
   adapter.find = function(match, query, done) {
 
     var qry = {};
@@ -134,11 +136,11 @@ module.exports = function(config) {
   };
 
   // remove an existing user from db
-  adapter.remove = function(username, done) {
+  adapter.remove = function(name, done) {
 
-    User.find({ where: {username: username} }).success(function(user) {
+    User.find({ where: {name: name} }).success(function(user) {
 
-      if (!user) return done(new Error('lockit - Cannot find user "' + username + '"'));
+      if (!user) return done(new Error('lockit - Cannot find user "' + name + '"'));
 
       user.destroy().success(function() {
         done(null, true);
