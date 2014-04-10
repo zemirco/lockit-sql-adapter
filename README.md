@@ -59,7 +59,7 @@ The `user` object has the following properties
  - `signupTimestamp`: Date object to remember when the user signed up
  - `signupToken`: unique token sent to user's email for email verification
  - `signupTokenExpires`: Date object usually 24h ahead of `signupTimestamp`
- - `username`: username chosen during sign up
+ - `name`: name chosen during sign up
  - `failedLoginAttempts`: save failed login attempts during login process, default is `0`
 
 ```js
@@ -68,7 +68,7 @@ adapter.save('john', 'john@email.com', 'secret', function(err, user) {
   console.log(user);
   // {
   //  _id: 1,
-  //  username: 'john',
+  //  name: 'john',
   //  email: 'john@email.com',
   //  signupToken: 'fed26ce9-2628-405a-b9fa-285d4a66f4c3',
   //  signupTimestamp: '2013-09-21T10:10:50.357Z',
@@ -83,17 +83,17 @@ adapter.save('john', 'john@email.com', 'secret', function(err, user) {
 
 `adapter.find(match, query, callback)`
 
- - `match`: String - one of the following: 'username', 'email' or 'signupToken'
+ - `match`: String - one of the following: 'name', 'email' or 'signupToken'
  - `query`: String - corresponds to `match`, i.e. 'john@email.com'
  - `callback`:  Function - `callback(err, user)`
 
 ```js
-adapter.find('username', 'john', function(err, user) {
+adapter.find('name', 'john', function(err, user) {
   if (err) console.log(err);
   console.log(user);
   // {
   //  _id: 1,
-  //  username: 'john',
+  //  name: 'john',
   //  email: 'john@email.com',
   //  signupToken: 'fed26ce9-2628-405a-b9fa-285d4a66f4c3',
   //  signupTimestamp: '2013-09-21T10:10:50.357Z',
@@ -113,7 +113,7 @@ adapter.find('username', 'john', function(err, user) {
 
 ```js
 // get a user from db first
-adapter.find('username', 'john', function(err, user) {
+adapter.find('name', 'john', function(err, user) {
   if (err) console.log(err);
 
   // add some new properties to our existing user
@@ -130,9 +130,9 @@ adapter.find('username', 'john', function(err, user) {
 
 ### 4. Delete user
 
-`adapter.remove(username, callback)`
+`adapter.remove(name, callback)`
 
- - `username`: String
+ - `name`: String
  - `callback`: Function - `callback(err, res)` - `res` is `true` if everything went fine
 
 ```js
