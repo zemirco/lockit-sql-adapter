@@ -36,14 +36,14 @@ The following settings are required.
 ```js
 // for postgres
 exports.db = {
-  url: 'postgres://postgres:@127.0.0.1:5432/',
+  url: 'postgres://127.0.0.1:5432/',
   name: 'users',
   collection: 'my_user_table'  // table name
 };
 
 // for mysql
 // exports.db = {
-//   url: 'mysql://travis:@127.0.0.1:3306/',
+//   url: 'mysql://127.0.0.1:3306/',
 //   name: 'users',
 //   collection: 'my_user_table'  // table name
 // };
