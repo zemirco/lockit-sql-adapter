@@ -15,7 +15,7 @@
 
   ```js
   exports.db = {
-    url: 'mysql://travis:@127.0.0.1:3306/',
+    url: 'mysql://127.0.0.1:3306/',
     name: 'users',
     collection: 'my_user_table'
   },
