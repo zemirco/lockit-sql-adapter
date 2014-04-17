@@ -1,4 +1,26 @@
 
+##### 0.5.0 - 2014-04-17
+
+- database config has to be an Object and the database name isn't part of the
+  connection string anymore
+
+  **old**
+
+  ```js
+  exports.db = 'mysql://127.0.0.1:9821/users';
+  exports.dbCollection = 'my_user_table';
+  ```
+
+  **new**
+
+  ```js
+  exports.db = {
+    url: 'mysql://travis:@127.0.0.1:3306/',
+    name: 'users',
+    collection: 'my_user_table'
+  },
+  ```
+
 ##### 0.4.0 - 2014-04-10
 
 - `username` becomes `name`
