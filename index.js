@@ -8,10 +8,11 @@ var Sequelize = require('sequelize');
 
 module.exports = function(config) {
 
-  var storage = (config.db === 'sqlite://:memory:') ? ':memory:' : url.parse(config.db).path;
+  // create connection string
+  var uri = config.db.url + config.db.name;
 
-  var sequelize = new Sequelize(config.db, {
-    storage: storage
+  var sequelize = new Sequelize(uri, {
+    storage: config.db.name
   });
 
   var User = sequelize.define('User', {
@@ -43,7 +44,7 @@ module.exports = function(config) {
     currentLoginTime: Sequelize.DATE,
     currentLoginIp: Sequelize.STRING
   }, {
-    tableName: config.dbCollection,   // this will define the table's name
+    tableName: config.db.collection,   // this will define the table's name
     timestamps: false                 // this will deactivate the timestamp columns
   });
 
