@@ -34,10 +34,26 @@ npm install mariasql # for mariasql
 The following settings are required.
 
 ```js
-exports.db = 'postgres://127.0.0.1:5432/users';  // for postgres
-// exports.db = 'mysql://127.0.0.1:9821/users';  // for mysql
-// exports.db = 'sqlite://:memory:';             // for sqlite
-exports.dbCollection = 'my_user_table';             // table name
+// for postgres
+exports.db = {
+  url: 'postgres://postgres:@127.0.0.1:5432/',
+  name: 'users',
+  collection: 'my_user_table'  // table name
+};
+
+// for mysql
+// exports.db = {
+//   url: 'mysql://travis:@127.0.0.1:3306/',
+//   name: 'users',
+//   collection: 'my_user_table'  // table name
+// };
+
+// for sqlite
+// exports.db = {
+//   url: 'sqlite://',
+//   name: ':memory:',
+//   collection: 'my_user_table'  // table name
+// };
 ```
 
 ## Features
