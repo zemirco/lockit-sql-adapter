@@ -28,17 +28,17 @@
   "dependencies": {
     "ms": "~0.6.2",
     "uuid": "~1.4.1",
-    "moment": "~2.5.0",
-    "sequelize": "~2.0.0-dev1",
-    "couch-pwd": "0.0.1"
+    "couch-pwd": "0.0.1",
+    "moment": "^2.6.0",
+    "sequelize": "^1.7.3"
   },
   "devDependencies": {
     "should": "~3.0.1",
-    "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
-    "pg": "~2.11.0",
-    "sqlite3": "~2.2.0",
-    "mysql": "~2.0.1"
+    "mysql": "~2.0.1",
+    "grunt": "^0.4.4",
+    "sqlite3": "^2.2.3",
+    "pg": "^3.0.3"
   }
 }
