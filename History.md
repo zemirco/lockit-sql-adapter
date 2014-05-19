@@ -1,10 +1,10 @@
 
-##### 0.5.1 - 2014-05-19
+##### 0.5.1 / 2014-05-19
 
 - code refactoring
 - update dependencies
 
-##### 0.5.0 - 2014-04-17
+##### 0.5.0 / 2014-04-17
 
 - database config has to be an Object and the database name isn't part of the
   connection string anymore
@@ -26,13 +26,13 @@
   },
   ```
 
-##### 0.4.0 - 2014-04-10
+##### 0.4.0 / 2014-04-10
 
 - `username` becomes `name`
 - use built-in [pbkdf2](http://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_callback)
   instead [bcrypt](https://github.com/ncb000gt/node.bcrypt.js/)
 
-##### 0.3.0 - 2014-04-03
+##### 0.3.0 / 2014-04-03
 
 - simplify `remove()` method
 
