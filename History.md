@@ -1,4 +1,9 @@
 
+##### 0.5.1 - 2014-05-19
+
+- code refactoring
+- update dependencies
+
 ##### 0.5.0 - 2014-04-17
 
 - database config has to be an Object and the database name isn't part of the
