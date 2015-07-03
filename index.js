@@ -1,5 +1,5 @@
+'use strict';
 
-var url = require('url');
 var uuid = require('uuid');
 var pwd = require('couch-pwd');
 var ms = require('ms');
@@ -19,7 +19,7 @@ var Sequelize = require('sequelize');
  */
 var Adapter = module.exports = function(config) {
 
-  if (!(this instanceof Adapter)) return new Adapter(config);
+  if (!(this instanceof Adapter)) {return new Adapter(config); }
 
   this.config = config;
 
@@ -63,11 +63,11 @@ var Adapter = module.exports = function(config) {
   });
 
   this.User.sequelize.sync({})
-    .success(function(res) {
+    .success(function() {
       // you can now use User to create new instances
     })
     .error(function(err) {
-      throw(err);
+      throw (err);
     });
 
 };
@@ -115,7 +115,7 @@ Adapter.prototype.save = function(name, email, pw, done) {
   var future = moment().add(timespan, 'ms').toDate();
   // create hashed password
   pwd.hash(pw, function(err, salt, hash) {
-    if (err) return done(err);
+    if (err) {return done(err); }
     var user = that.User.build({
       name: name,
       email: email,
@@ -131,15 +131,15 @@ Adapter.prototype.save = function(name, email, pw, done) {
       .success(function() {
         // find user to return it in callback
         that.User.find({ where: {email: email} })
-          .success(function(user) {
-            done(null, user.dataValues);
+          .success(function(foundUser) {
+            done(null, foundUser.dataValues);
           })
-          .error(function(err) {
-            done(err);
+          .error(function(findErr) {
+            done(findErr);
           });
       })
-      .error(function(err) {
-        done(err);
+      .error(function(saveErr) {
+        done(saveErr);
       });
   });
 };
@@ -219,8 +219,8 @@ Adapter.prototype.update = function(user, done) {
   that.User.update(user, {_id: user._id})
     .success(function() {
       that.User.find(user._id)
-        .success(function(user) {
-          done(null, user.dataValues);
+        .success(function(foundUser) {
+          done(null, foundUser.dataValues);
         })
         .error(function(err) {
           done(err);
@@ -247,7 +247,7 @@ Adapter.prototype.update = function(user, done) {
 Adapter.prototype.remove = function(name, done) {
   this.User.find({ where: {name: name} })
     .success(function(user) {
-      if (!user) return done(new Error('lockit - Cannot find user "' + name + '"'));
+      if (!user) {return done(new Error('lockit - Cannot find user "' + name + '"')); }
       user.destroy()
         .success(function() {
           done(null, true);

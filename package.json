@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zeMirco/lockit-sql-adapter"
+    "url": "https://github.com/zemirco/lockit-sql-adapter"
   },
   "keywords": [
     "lockit",
@@ -22,7 +22,7 @@
   "author": {
     "name": "Mirco Zeiss",
     "email": "mirco.zeiss@gmail.com",
-    "twitter": "zeMirco"
+    "twitter": "zemirco"
   },
   "license": "MIT",
   "dependencies": {
@@ -33,12 +33,13 @@
     "sequelize": "^1.7.3"
   },
   "devDependencies": {
-    "should": "~3.0.1",
+    "eslint": "^0.24.0",
+    "grunt": "^0.4.4",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
     "mysql": "~2.0.1",
-    "grunt": "^0.4.4",
-    "sqlite3": "^2.2.3",
-    "pg": "^3.0.3"
+    "pg": "^3.0.3",
+    "should": "~3.0.1",
+    "sqlite3": "^2.2.3"
   }
 }

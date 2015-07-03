@@ -1,10 +1,14 @@
+
 language: node_js
+
 node_js:
+  - "0.12"
   - "0.10"
-services: 
+
+services:
   - postgresql
   - mysql
+
 before_script:
-  - npm install -g grunt-cli
   - psql -c 'create database users;' -U postgres
   - mysql -e 'create database users;'
