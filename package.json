@@ -26,20 +26,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "ms": "~0.6.2",
-    "uuid": "~1.4.1",
     "couch-pwd": "0.0.1",
     "moment": "^2.6.0",
-    "sequelize": "^1.7.3"
+    "ms": "^0.7.1",
+    "sequelize": "^3.3.2",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^0.24.0",
-    "grunt": "^0.4.4",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-mocha-test": "~0.8.2",
-    "mysql": "~2.0.1",
-    "pg": "^3.0.3",
-    "should": "~3.0.1",
-    "sqlite3": "^2.2.3"
+    "mocha": "^2.2.5",
+    "mysql": "^2.7.0",
+    "pg": "^4.4.0",
+    "should": "^7.0.1",
+    "sqlite3": "^3.0.8"
   }
 }
