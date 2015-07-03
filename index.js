@@ -63,7 +63,7 @@ var Adapter = module.exports = function(config) {
   });
 
   this.User.sequelize.sync({})
-    .success(function() {
+    .then(function() {
       // you can now use User to create new instances
     })
     .error(function(err) {
@@ -128,10 +128,10 @@ Adapter.prototype.save = function(name, email, pw, done) {
     });
     // save user to db
     user.save()
-      .success(function() {
+      .then(function() {
         // find user to return it in callback
         that.User.find({ where: {email: email} })
-          .success(function(foundUser) {
+          .then(function(foundUser) {
             done(null, foundUser.dataValues);
           })
           .error(function(findErr) {
@@ -182,7 +182,7 @@ Adapter.prototype.find = function(match, query, done) {
   var qry = {};
   qry[match] = query;
   this.User.find({ where: qry })
-    .success(function(user) {
+    .then(function(user) {
       // create empty object in case no user is found
       user = user || {};
       done(null, user.dataValues);
@@ -216,10 +216,10 @@ Adapter.prototype.find = function(match, query, done) {
  */
 Adapter.prototype.update = function(user, done) {
   var that = this;
-  that.User.update(user, {_id: user._id})
-    .success(function() {
-      that.User.find(user._id)
-        .success(function(foundUser) {
+  that.User.update(user, {where: {_id: user._id}})
+    .then(function() {
+      that.User.findById(user._id)
+        .then(function(foundUser) {
           done(null, foundUser.dataValues);
         })
         .error(function(err) {
@@ -246,10 +246,10 @@ Adapter.prototype.update = function(user, done) {
  */
 Adapter.prototype.remove = function(name, done) {
   this.User.find({ where: {name: name} })
-    .success(function(user) {
+    .then(function(user) {
       if (!user) {return done(new Error('lockit - Cannot find user "' + name + '"')); }
       user.destroy()
-        .success(function() {
+        .then(function() {
           done(null, true);
         })
         .error(function(err) {
