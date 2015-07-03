@@ -1,4 +1,10 @@
 
+##### 0.5.2 / 2015-07-03
+
+- use make instead grunt
+- update dependencies
+- use eslint
+
 ##### 0.5.1 / 2014-05-19
 
 - code refactoring
