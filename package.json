@@ -4,7 +4,7 @@
   "description": "SQL adapter for lockit. Works with PostgreSQL, MySQL, SQLite and MariaDB",
   "main": "index.js",
   "scripts": {
-    "test": "grunt"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
