@@ -1,4 +1,8 @@
 
+##### 0.5.3 / 2015-07-06
+
+- fix eslint errors in test files
+
 ##### 0.5.2 / 2015-07-03
 
 - use make instead grunt
