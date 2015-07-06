@@ -1,3 +1,4 @@
+'use strict';
 
 var should = require('should');
 var config = require('./config.js');
@@ -9,7 +10,7 @@ Object.keys(config.dbs).forEach(function(obj) {
     db: {
       url: config.dbs[obj].url,
       name: config.dbs[obj].name,
-      collection: config.dbs[obj].collection,
+      collection: config.dbs[obj].collection
     },
     signup: config.signup
   };
@@ -24,7 +25,7 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should create a new user', function(done) {
       adapter.save('john', 'john@email.com', 'secret', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.should.have.property('signupToken');
         res.signupToken.should.match(/[0-9a-f]{22}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/);
         res.should.have.property('failedLoginAttempts');
@@ -37,7 +38,7 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should find a user by name', function(done) {
       adapter.find('name', 'john', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.name.should.equal('john');
         res.email.should.equal('john@email.com');
         done();
@@ -46,7 +47,7 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should return undefined when no user is found', function(done) {
       adapter.find('name', 'jim', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         should.not.exist(err);
         should.not.exist(res);
         done();
@@ -55,7 +56,7 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should find a user by email', function(done) {
       adapter.find('email', 'john@email.com', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.name.should.equal('john');
         res.email.should.equal('john@email.com');
         done();
@@ -64,7 +65,7 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should find a user by signup token', function(done) {
       adapter.find('signupToken', _tmp_signupToken, function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.name.should.equal('john');
         res.email.should.equal('john@email.com');
         done();
@@ -73,11 +74,11 @@ Object.keys(config.dbs).forEach(function(obj) {
 
     it('should update an existing user', function(done) {
       adapter.find('name', 'john', function(err, doc) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         doc.signupToken = 'works';
         doc.accountLocked = true;
-        adapter.update(doc, function(err, res) {
-          if (err) console.log(err);
+        adapter.update(doc, function(updateErr, res) {
+          if (updateErr) {console.log(updateErr); }
           res.signupToken.should.equal('works');
           res.accountLocked.should.be.true;
           done();
@@ -86,10 +87,10 @@ Object.keys(config.dbs).forEach(function(obj) {
     });
 
     it('should remove a user', function(done) {
-      adapter.save('jeff', 'jeff@email.com', 'secret', function(err, res) {
-        if (err) console.log(err);
-        adapter.remove('jeff', function(err, res) {
-          if (err) console.log(err);
+      adapter.save('jeff', 'jeff@email.com', 'secret', function(err) {
+        if (err) {console.log(err); }
+        adapter.remove('jeff', function(removeErr, res) {
+          if (removeErr) {console.log(removeErr); }
           res.should.be.true;
           done();
         });
@@ -97,7 +98,7 @@ Object.keys(config.dbs).forEach(function(obj) {
     });
 
     it('should return an error when remove cannot find a user', function(done) {
-      adapter.remove('steve', function(err, res) {
+      adapter.remove('steve', function(err) {
         err.message.should.equal('lockit - Cannot find user "steve"');
         done();
       });
