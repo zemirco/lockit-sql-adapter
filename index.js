@@ -218,7 +218,7 @@ Adapter.prototype.update = function(user, done) {
   var that = this;
   that.User.update(user, {where: {_id: user._id}})
     .then(function() {
-      that.User.findById(user._id)
+      that.User.findByPk(user._id)
         .then(function(foundUser) {
           done(null, foundUser.dataValues);
         })
