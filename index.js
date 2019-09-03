@@ -130,7 +130,7 @@ Adapter.prototype.save = function(name, email, pw, done) {
     user.save()
       .then(function() {
         // find user to return it in callback
-        that.User.find({ where: {email: email} })
+        that.User.findOne({ where: {email: email} })
           .then(function(foundUser) {
             done(null, foundUser.dataValues);
           })
@@ -181,7 +181,7 @@ Adapter.prototype.save = function(name, email, pw, done) {
 Adapter.prototype.find = function(match, query, done) {
   var qry = {};
   qry[match] = query;
-  this.User.find({ where: qry })
+  this.User.findOne({ where: qry })
     .then(function(user) {
       // create empty object in case no user is found
       user = user || {};
@@ -218,7 +218,7 @@ Adapter.prototype.update = function(user, done) {
   var that = this;
   that.User.update(user, {where: {_id: user._id}})
     .then(function() {
-      that.User.findById(user._id)
+      that.User.findByPk(user._id)
         .then(function(foundUser) {
           done(null, foundUser.dataValues);
         })
@@ -245,7 +245,7 @@ Adapter.prototype.update = function(user, done) {
  * @param {Function} done - Callback function having `err` and `res` arguments
  */
 Adapter.prototype.remove = function(name, done) {
-  this.User.find({ where: {name: name} })
+  this.User.findOne({ where: {name: name} })
     .then(function(user) {
       if (!user) {return done(new Error('lockit - Cannot find user "' + name + '"')); }
       user.destroy()
