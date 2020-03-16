@@ -26,19 +26,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "couch-pwd": "0.0.1",
-    "moment": "^2.6.0",
-    "ms": "^0.7.1",
-    "sequelize": "^3.3.2",
-    "uuid": "^2.0.1"
+    "couch-pwd": "github:zemirco/couch-pwd",
+    "moment": "^2.22.2",
+    "ms": "^2.1.1",
+    "sequelize": "^5.18.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "eslint": "^0.24.0",
-    "mocha": "^2.2.5",
-    "mysql": "^2.7.0",
-    "pg": "^4.4.0",
+    "eslint": "^6.0.1",
+    "mocha": "^5.2.0",
+    "mysql": "^2.15.0",
+    "pg": "^6.0.0",
     "pg-hstore": "^2.3.2",
-    "should": "^7.0.1",
-    "sqlite3": "^3.0.8"
+    "should": "^13.2.1",
+    "sqlite3": "^4.0.1"
   }
 }

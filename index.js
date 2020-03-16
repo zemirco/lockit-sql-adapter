@@ -66,7 +66,7 @@ var Adapter = module.exports = function(config) {
     .then(function() {
       // you can now use User to create new instances
     })
-    .error(function(err) {
+    .catch(function(err) {
       throw (err);
     });
 
@@ -116,7 +116,7 @@ Adapter.prototype.save = function(name, email, pw, done) {
   // create hashed password
   pwd.hash(pw, function(err, salt, hash) {
     if (err) {return done(err); }
-    var user = that.User.build({
+    var record = {
       name: name,
       email: email,
       signupToken: uuid.v4(),
@@ -125,20 +125,23 @@ Adapter.prototype.save = function(name, email, pw, done) {
       failedLoginAttempts: 0,
       salt: salt,
       derived_key: hash
-    });
+    };
+    var user = that.User.build(record);
     // save user to db
     user.save()
       .then(function() {
         // find user to return it in callback
-        that.User.find({ where: {email: email} })
+        that.User.findOne({ where: {email: email} })
           .then(function(foundUser) {
             done(null, foundUser.dataValues);
           })
-          .error(function(findErr) {
+          .catch(function(findErr) {
+            console.log('Lockit: could not find new user ', JSON.stringify(record, null, 2));
             done(findErr);
           });
       })
-      .error(function(saveErr) {
+      .catch(function(saveErr) {
+        console.log('Lockit: could not create new user ', JSON.stringify(record, null, 2));
         done(saveErr);
       });
   });
@@ -181,13 +184,13 @@ Adapter.prototype.save = function(name, email, pw, done) {
 Adapter.prototype.find = function(match, query, done) {
   var qry = {};
   qry[match] = query;
-  this.User.find({ where: qry })
+  this.User.findOne({ where: qry })
     .then(function(user) {
       // create empty object in case no user is found
       user = user || {};
       done(null, user.dataValues);
     })
-    .error(function(err) {
+    .catch(function(err) {
       done(err);
     });
 };
@@ -218,15 +221,15 @@ Adapter.prototype.update = function(user, done) {
   var that = this;
   that.User.update(user, {where: {_id: user._id}})
     .then(function() {
-      that.User.findById(user._id)
+      that.User.findByPk(user._id)
         .then(function(foundUser) {
           done(null, foundUser.dataValues);
         })
-        .error(function(err) {
+        .catch(function(err) {
           done(err);
         });
     })
-    .error(function(err) {
+    .catch(function(err) {
       done(err);
     });
 };
@@ -245,18 +248,18 @@ Adapter.prototype.update = function(user, done) {
  * @param {Function} done - Callback function having `err` and `res` arguments
  */
 Adapter.prototype.remove = function(name, done) {
-  this.User.find({ where: {name: name} })
+  this.User.findOne({ where: {name: name} })
     .then(function(user) {
       if (!user) {return done(new Error('lockit - Cannot find user "' + name + '"')); }
       user.destroy()
         .then(function() {
           done(null, true);
         })
-        .error(function(err) {
+        .catch(function(err) {
           done(err);
         });
     })
-    .error(function(err) {
+    .catch(function(err) {
       done(err);
     });
 };
